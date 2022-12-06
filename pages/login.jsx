@@ -1,3 +1,5 @@
+import Head from "next/head"
+import Link from "next/link"
 import { useRouter } from "next/router"
 import { useState } from "react"
 import Swal from "sweetalert2"
@@ -61,6 +63,9 @@ export default function Login() {
   }
   return (
     <div className="container-fluid">
+      <Head>
+        <title>Login - Monitoring PKL</title>
+      </Head>
       <div className="row justify-content-md-center">
         <div className="card">
           <div className="card-body">
@@ -74,7 +79,7 @@ export default function Login() {
                   <label htmlFor="exampleDropdownFormPassword1">Password</label>
                   <input type="password" className="form-control" id="exampleDropdownFormPassword1" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
                 </div>
-                <p>Daftar Akun? <a href="">Register</a></p>
+                <p>Daftar Akun? <Link href="/register">Register</Link></p>
                 <button type="submit" className="btn btn-primary">Sign in</button>
               </form>
             </div>
