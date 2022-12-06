@@ -1,4 +1,3 @@
-import Card from "../utils/card";
 import SmallCard from "../utils/card-small";
 import ContentHeader from "../utils/content-header";
 
