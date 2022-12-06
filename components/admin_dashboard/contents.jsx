@@ -29,7 +29,7 @@ export default function AdminDashboardContent(){
             <SmallCard title={'150'} caption={'Total Guru'} icon={'ion-android-people'} background={'bg-info'} />
           </div>
           <div className="col-lg-4 col-6">
-            <SmallCard title={'150'} caption={'Total DUDI'} icon={'ion-android-people'} background={'bg-primary'} />
+            <SmallCard title={'150'} caption={'Total DUDI'} icon={'ion-android-map'} background={'bg-primary'} />
           </div>
         </div>
       </div>

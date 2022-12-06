@@ -74,6 +74,7 @@ export default function Login() {
                   <label htmlFor="exampleDropdownFormPassword1">Password</label>
                   <input type="password" className="form-control" id="exampleDropdownFormPassword1" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
                 </div>
+                <p>Daftar Akun? <a href="">Register</a></p>
                 <button type="submit" className="btn btn-primary">Sign in</button>
               </form>
             </div>
