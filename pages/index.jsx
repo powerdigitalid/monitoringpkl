@@ -1,10 +1,18 @@
 import Head from 'next/head'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 // import Content from '../components/utils/content-example'
 import Navbar from '../components/utils/navbar'
 import Scripts from '../components/utils/scripts'
 import Sidebar from '../components/utils/sidebar'
+import useLoginStore from '../store/store'
 
 export default function Home() {
+  const role = useLoginStore((state) => state.role)
+  const router = useRouter()
+  useEffect(() => {
+    if(role === '') router.push('/login')
+  })
   return (
     <div className="hold-transition sidebar-mini layout-fixed">
       <div className='wrapper'>
