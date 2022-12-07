@@ -1,9 +1,9 @@
 import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Swal from "sweetalert2"
-import {supabase} from "../libs/supabase.lib"
+import { supabase } from "../libs/supabase.lib"
 import useLoginStore from "../store/store"
 
 export default function Login() {
@@ -16,8 +16,9 @@ export default function Login() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [role, setR] = useState('')
+  const [loading, setLoading] = useState(false)
   const handleGetUserData = async () => {
-    const {data, error} = await supabase.from('User').select().match({email: username})
+    const { data, error } = await supabase.from('User').select().match({ email: username })
     if (error) {
       return false
     } else {
@@ -32,35 +33,36 @@ export default function Login() {
   }
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const {error} = await supabase.auth.signInWithPassword({
+    setLoading(true)
+    const { error } = await supabase.auth.signInWithPassword({
       email: username,
       password: password
     })
     if (error) {
+      setLoading(false)
       Swal.fire('Error', 'Invalid username or password!', 'warning')
-      console.error(error)
     } else {
-      console.info('logged in')
-      if (handleGetUserData()) {
-        switch (role) {
-          case 'admin':
-            router.push('/admin')
-            break;
-          case 'guru':
-            router.push('/siswa')
-            break
-          case 'siswa':
-            router.push('/siswa/activity')
-            break
-          case 'dudi':
-            router.push('/siswa')
-        
-          default:
-            break;
-        }
-      }
+      handleGetUserData()
     }
   }
+  useEffect(() => {
+    switch (role) {
+      case 'admin':
+        router.push('/admin')
+        break;
+      case 'guru':
+        router.push('/siswa')
+        break
+      case 'siswa':
+        router.push('/siswa/activity')
+        break
+      case 'dudi':
+        router.push('/siswa')
+
+      default:
+        break;
+    }
+  })
   return (
     <div className="container-fluid">
       <Head>
@@ -73,14 +75,16 @@ export default function Login() {
               <form className="px-4 py-3" onSubmit={handleSubmit}>
                 <div className="form-group">
                   <label htmlFor="exampleDropdownFormEmail1">Username</label>
-                  <input type="email" className="form-control" id="exampleDropdownFormEmail1" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
+                  <input type="email" className="form-control" id="exampleDropdownFormEmail1" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
                 </div>
                 <div className="form-group">
                   <label htmlFor="exampleDropdownFormPassword1">Password</label>
-                  <input type="password" className="form-control" id="exampleDropdownFormPassword1" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                  <input type="password" className="form-control" id="exampleDropdownFormPassword1" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 </div>
-                <p>Daftar Akun? <Link href="/register">Register</Link></p>
                 <button type="submit" className="btn btn-primary">Sign in</button>
+                <div className="spinner-border text-primary float-right" role="status" hidden={loading == false ? true : false}>
+                  <span className="sr-only">Loading...</span>
+                </div>
               </form>
             </div>
           </div>
