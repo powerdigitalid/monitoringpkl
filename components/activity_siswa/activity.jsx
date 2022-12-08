@@ -8,7 +8,6 @@ export default function Activity() {
   const role = useLoginStore((state) => state.role)
   const [loading, setLoading] = useState(false)
   const [log, setLog] = useState([])
-  console.log(role)
   const fetchLog = async () => {
     setLoading(true)
     let { data, error } = await supabase.from('LogSiswa').select('*, Dudi (id, nama_dudi)')
