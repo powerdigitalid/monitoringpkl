@@ -8,6 +8,7 @@ export default function Activity() {
   const role = useLoginStore((state) => state.role)
   const [loading, setLoading] = useState(false)
   const [log, setLog] = useState([])
+  console.log(role)
   const fetchLog = async () => {
     setLoading(true)
     let { data, error } = await supabase.from('LogSiswa').select('*, Dudi (id, nama_dudi)')
@@ -32,7 +33,7 @@ export default function Activity() {
     <section className="content">
       <div className="container-fluid">
         {/* Timelime example  */}
-        {role === 'admin' && role === 'siswa' ? <EditActivity /> : <></>}
+        {role === 'admin' || role === 'siswa' ? <EditActivity /> : <></>}
         <div className="row">
           <div className="col-md-12">
             {/* The time line */}
