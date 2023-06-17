@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import Activity from "../../components/activity_siswa/activity";
+import Activity from "../../components/siswa/activity";
 import ContentHeader from "../../components/utils/content-header";
 import Layout from "../../components/utils/layout";
 import useLoginStore from "../../store/store";

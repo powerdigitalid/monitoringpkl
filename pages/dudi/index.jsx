@@ -25,7 +25,7 @@ export default function DuDi(){
     },
   ]
   return (
-    <Layout title="DUDI" activeNavBarItem={6} activeUser={user}>
+    <Layout title="DUDI" activeNavBarItem={7} activeUser={user}>
       <ContentHeader title={'Data DUDI'} listBreadcrumb={breadcrumbs} />
       <TableDudi />
     </Layout>

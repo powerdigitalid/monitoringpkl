@@ -76,9 +76,17 @@ export default function Sidebar({isActiveNavItem=0, activeUser=''}) {
                 </p>
               </Link>
             </li>
+            <li className="nav-item" hidden={role == 'guru' || role == 'dudi' || role == 'admin' || role == 'siswa' ? false : true}>
+              <Link href="/siswa/laporan" className={`nav-link ${isActiveNavItem == 6 ? ' active':''}`}>
+                <i className="nav-icon fas fa-upload" />
+                <p>
+                  Laporan
+                </p>
+              </Link>
+            </li>
             <li className="nav-header" hidden={role == 'admin' ? false : true}>DUDI</li>
             <li className="nav-item" hidden={role == 'admin' ? false : true}>
-              <Link href="/dudi" className={`nav-link ${isActiveNavItem == 6 ? ' active':''}`}>
+              <Link href="/dudi" className={`nav-link ${isActiveNavItem == 7 ? ' active':''}`}>
                 <i className="nav-icon fas fa-building" />
                 <p>
                   Data DUDI
