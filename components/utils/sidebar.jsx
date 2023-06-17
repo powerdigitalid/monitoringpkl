@@ -93,6 +93,15 @@ export default function Sidebar({isActiveNavItem=0, activeUser=''}) {
                 </p>
               </Link>
             </li>
+            <li className="nav-header" hidden={role == 'admin' ? false : true}>Certificate</li>
+            <li className="nav-item" hidden={role == 'admin' ? false : true}>
+              <Link href="/certificate" className={`nav-link ${isActiveNavItem == 8 ? ' active':''}`}>
+                <i className="nav-icon fas fa-building" />
+                <p>
+                  Cetak Certificate
+                </p>
+              </Link>
+            </li>
           </ul>
         </nav>
         {/* /.sidebar-menu */}

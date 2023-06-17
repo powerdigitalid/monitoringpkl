@@ -1,5 +1,5 @@
-import '../styles/globals.css'
 import '../public/dist/css/adminlte.min.css'
+import '../public/dist/css/custom.css'
 import '../public/plugins/fontawesome-free/css/all.min.css'
 import '../public/plugins/overlayScrollbars/css/OverlayScrollbars.min.css'
 import '../public/plugins/icheck-bootstrap/icheck-bootstrap.min.css'
