@@ -2,12 +2,20 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import { supabase } from "../../libs/supabase.lib";
 import Card from "../utils/card";
+import React from 'react';
+import { useReactToPrint } from 'react-to-print';
 
 export default function Template() {
   const [namaSiswa, setNamaSiswa] = useState("");
   const [namaSekolah, setNamaSekolah] = useState("");
   const [namaKaprok, setNamaKaprok] = useState("");
   const [namaKepalaSekolah, setNamaKepalaSekolah] = useState("");
+
+  const componentRef = React.useRef();
+
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
 
   const handleNamaSiswaChange = (event) => {
     setNamaSiswa(event.target.value);
@@ -99,10 +107,15 @@ export default function Template() {
                 </div>
               </div>
             </div>
+            <div className="row mt-3">
+              <div className="col">
+                <button className="btn btn-success" onClick={handlePrint}><i className="fas fa-arrow-down"></i> Cetak Certificate</button>
+              </div>
+            </div>
           </div>
         </form>
       </Card>
-      <div className="container pm-certificate-container">
+      <div className="container pm-certificate-container" ref={componentRef}>
         <div className="outer-border" />
         <div className="inner-border" />
         <div className="pm-certificate-border">
