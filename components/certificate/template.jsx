@@ -4,95 +4,101 @@ import { supabase } from "../../libs/supabase.lib";
 import Card from "../utils/card";
 
 export default function Template() {
-  const [isUploading, setIsUploading] = useState(false);
-  const [uploadMessage, setUploadMessage] = useState("Upload");
-  const [fileName, setFileName] = useState("");
-  const [kegiatan, setKegiatan] = useState("");
-  const uploadImage = async (event) => {
-    try {
-      setIsUploading(true);
-      setUploadMessage("Uploading...");
-      if (!event.target.files || event.target.files.length == 0) {
-        throw new Error("Anda harus memilih satu gambar untuk diunggah!");
-      }
-      const file = event.target.files[0];
-      const fileExt = file.name.split(".").pop();
-      const fileName = `${Date.now()}-username.${fileExt}`;
-      const filePath = `${fileName}`;
-      setFileName(filePath);
-      let { error: uploadError } = await supabase.storage
-        .from("log-guru-images")
-        .upload(filePath, file, { upsert: true });
-      if (uploadError) throw uploadError;
-      setUploadMessage("Upload completed!");
-    } catch (error) {
-      Swal.fire("Error", "Error while uploading image file!", "error");
-      console.error(error);
-    } finally {
-      setIsUploading(false);
-    }
+  const [namaSiswa, setNamaSiswa] = useState("");
+  const [namaSekolah, setNamaSekolah] = useState("");
+  const [namaKaprok, setNamaKaprok] = useState("");
+  const [namaKepalaSekolah, setNamaKepalaSekolah] = useState("");
+
+  const handleNamaSiswaChange = (event) => {
+    setNamaSiswa(event.target.value);
   };
+
+  const handleNamaSekolahChange = (event) => {
+    setNamaSekolah(event.target.value);
+  };
+
+  const handleNamaKaprokChange = (event) => {
+    setNamaKaprok(event.target.value);
+  };
+
+  const handleNamaKepalaSekolahChange = (event) => {
+    setNamaKepalaSekolah(event.target.value);
+  };
+
   const handleCreateLog = async (e) => {
+    e.preventDefault();
+
     try {
-      e.preventDefault();
-      if (fileName == "")
-        throw new Error("Anda harus memilih satu gambar untuk diunggah!");
-      const newLog = {
-        nama: "guru",
-        kegiatan: kegiatan,
-        createdAt: new Date(Date.now()).toISOString(),
-        image: fileName,
-      };
-      let { data, error } = await supabase
-        .from("LogGuru")
-        .insert(newLog)
-        .select();
-      if (error) {
-        console.error(error);
-      } else {
-        Swal.fire("Success", "Log berhasil ditambahkan!", "info");
-        setFileName("");
-        setUploadMessage("Upload");
-        e.target.files = [];
-        console.info(data);
+      // Lakukan validasi input sesuai kebutuhan
+      if (namaSiswa === "") {
+        throw new Error("Nama Siswa harus diisi");
       }
+      if (namaSekolah === "") {
+        throw new Error("Nama Sekolah harus diisi");
+      }
+      if (namaKaprok === "") {
+        throw new Error("Nama Kaprok harus diisi");
+      }
+      if (namaKepalaSekolah === "") {
+        throw new Error("Nama Kepala Sekolah harus diisi");
+      }
+      setNamaSiswa("");
+      setNamaSekolah("");
+      setNamaKaprok("");
+      setNamaKepalaSekolah("");
     } catch (error) {
-      Swal.fire(
-        "Error",
-        "Anda harus memilih satu gambar untuk diunggah!",
-        "error"
-      );
+      // Tangani error jika ada kesalahan dalam input atau proses manipulasi sertifikat
+      Swal.fire("Error", error.message, "error");
     }
   };
+
+
+
   return (
     <div className="container-fluid">
-      <Card cardTitle="Upload Laporan" cardIcon="fa-upload">
-        <form onSubmit={handleCreateLog}>
+      <Card cardTitle="Edit Certificate" cardIcon="fa-edit">
+        <form>
           <div className="form-group">
-            <label htmlFor="exampleInputFile">Pilih File</label>
-            <div className="input-group">
-              <div className="custom-file">
-                <input
-                  type="file"
-                  className="custom-file-input"
-                  accept="pdf/*"
-                  onChange={uploadImage}
-                  disabled={isUploading}
-                />
-                <label className="custom-file-label" htmlFor="exampleInputFile">
-                  {fileName == "" ? "Choose file" : fileName}
-                </label>
+            <div className="row">
+              <div className="col-md-6">
+                <div>
+                  <label htmlFor="exampleInputName1">Nama Siswa</label>
+                  <input type="text" className="form-control form-control-sm text-left" id="exampleInputName1" 
+                  value={namaSiswa}
+                  onChange={handleNamaSiswaChange}
+                    required />
+                </div>
               </div>
-              <div className="input-group-append">
-                <span className="input-group-text">{uploadMessage}</span>
+              <div className="col-md-6">
+                <div>
+                  <label htmlFor="exampleInputName2">Nama Sekolah</label>
+                  <input type="text" className="form-control form-control-sm text-left text-left" id="exampleInputName2"  required 
+                  value={namaSekolah}
+                  onChange={handleNamaSekolahChange}
+                  />
+                </div>
               </div>
             </div>
-          </div>
-          {/* /.card-body */}
-          <div className="card-footer">
-            <button type="submit" className="btn btn-primary">
-              <i className="fas fa-upload" /> Upload
-            </button>
+            <div className="row">
+              <div className="col-md-6">
+                <div>
+                  <label htmlFor="exampleInputName1">Nama Kaprok</label>
+                  <input type="text" className="form-control form-control-sm text-left" id="exampleInputName1"  required 
+                  value={namaKaprok}
+                  onChange={handleNamaKaprokChange}
+                  />
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div>
+                  <label htmlFor="exampleInputName2">Nama Kepala Sekolah</label>
+                  <input type="text" className="form-control form-control-sm text-left text-left" id="exampleInputName2"  required 
+                  value={namaKepalaSekolah}
+                  onChange={handleNamaKepalaSekolahChange}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </form>
       </Card>
@@ -112,7 +118,7 @@ export default function Template() {
                   <div className="col-xs-2">{/* LEAVE EMPTY */}</div>
                   <div className="pm-certificate-name underline margin-0 col-xs-8 text-center" style={{marginLeft: "180px"}}>
                     <span className="pm-name-text bold">
-                      TrueNorth Administrator
+                      {namaSiswa}
                     </span>
                   </div>
                   <div className="col-xs-2">{/* LEAVE EMPTY */}</div>
@@ -135,7 +141,7 @@ export default function Template() {
                   <div className="col-xs-2">{/* LEAVE EMPTY */}</div>
                   <div className="pm-course-title underline col-xs-8 text-center" style={{marginLeft: "170px"}}>
                     <span className="pm-credits-text block bold sans">
-                      SMK MUHAMMADIYAH 6 ROGOJAMPI
+                      {namaSekolah}
                     </span>
                   </div>
                   <div className="col-xs-2">{/* LEAVE EMPTY */}</div>
@@ -150,7 +156,7 @@ export default function Template() {
                     </span>
                     <span className="pm-empty-space block underline" />
                     <span className="bold block">
-                      Bambang Sulastri
+                      {namaKaprok}
                     </span>
                   </div>
                   <div className="col-xs-2">{/* LEAVE EMPTY */}</div>
@@ -165,7 +171,7 @@ export default function Template() {
                     </span>
                     <span className="pm-empty-space block underline" />
                     <span className="bold block">
-                      Budi Kartini
+                      {namaKepalaSekolah}
                     </span>
                   </div>
                   <div className="col-xs-2">{/* LEAVE EMPTY */}</div>
