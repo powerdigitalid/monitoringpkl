@@ -23,6 +23,7 @@ model DataSiswa {
   userId       Int?
   dudi         Dudi   @relation(fields: [DudiId], references: [id])
   DudiId       Int
+  Laporan      Laporan[]
 }
 
 model DataGuru {
@@ -66,5 +67,14 @@ model LogGuru {
   nama      String
   kegiatan  String
   image     String?
+  createdAt DateTime
+}
+
+model Laporan {
+  id        Int      @id @default(autoincrement())
+  nama      String
+  file      String?
+  siswa     DataSiswa @relation(fields: [SiswaId], references: [nisn])
+  SiswaId   Float
   createdAt DateTime
 }

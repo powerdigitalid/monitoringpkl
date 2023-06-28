@@ -8,7 +8,7 @@ export default function Upload() {
   const [uploadMessage, setUploadMessage] = useState("Upload");
   const [fileName, setFileName] = useState("");
   const [kegiatan, setKegiatan] = useState("");
-  const uploadImage = async (event) => {
+  const uploadFile = async (event) => {
     try {
       setIsUploading(true);
       setUploadMessage("Uploading...");
@@ -21,7 +21,7 @@ export default function Upload() {
       const filePath = `${fileName}`;
       setFileName(filePath);
       let { error: uploadError } = await supabase.storage
-        .from("log-guru-images")
+        .from("file-laporan")
         .upload(filePath, file, { upsert: true });
       if (uploadError) throw uploadError;
       setUploadMessage("Upload completed!");
@@ -76,7 +76,7 @@ export default function Upload() {
                   type="file"
                   className="custom-file-input"
                   accept="pdf/*"
-                  onChange={uploadImage}
+                  onChange={uploadFile}
                   disabled={isUploading}
                 />
                 <label className="custom-file-label" htmlFor="exampleInputFile">
