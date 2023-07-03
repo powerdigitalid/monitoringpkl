@@ -20,7 +20,7 @@ export default function TableUsers() {
     };
     // fetchUser()
   }, [])
-  console.log(userdata)
+  // console.log(userdata)
   return (
     <div className="content">
       <div className="container-fluid">

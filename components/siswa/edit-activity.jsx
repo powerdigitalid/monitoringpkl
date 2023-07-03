@@ -59,6 +59,7 @@ export default function EditActivity() {
         nama: dataSiswa[0].nama_siswa,
         kegiatan: kegiatan,
         dudiId: dataSiswa[0].DudiId,
+        guruId: dataSiswa[0].GuruId,
         createdAt: new Date(Date.now()).toISOString(),
         image: fileName
       }

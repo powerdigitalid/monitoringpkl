@@ -6,8 +6,12 @@ import EditActivity from "./edit-activity";
 
 export default function Activity() {
   const role = useLoginStore((state) => state.role)
+  const user = useLoginStore((state) => state.id)
   const [loading, setLoading] = useState(false)
   const [log, setLog] = useState([])
+  const [dataFilter, setDataFilter] = useState([]);
+  // const data = {...log}
+  console.log(dataFilter)
   const fetchLog = async () => {
     setLoading(true)
     let { data, error } = await supabase.from('LogSiswa').select('*, Dudi (id, nama_dudi)')
@@ -25,9 +29,26 @@ export default function Activity() {
       console.error(error)
     }
   }
+
+  const filterByDudi = () => {
+    if (role === 'dudi') {
+      const filtered = log.filter((item) => item.dudiId == user);
+      console.log(filtered)
+      setDataFilter(filtered);
+    } else {
+      fetchLog();
+    }
+  }
+
+  
   useEffect(() => {
     fetchLog()
   }, [log])
+
+  useEffect(() => {
+    filterByDudi()
+  }, [])
+
   return (
     <section className="content">
       <div className="container-fluid">
