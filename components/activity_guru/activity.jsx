@@ -18,11 +18,12 @@ export default function Activity() {
     }
     const downloadImage = (image) => {
         try {
-            return `https://owmkwndkjubdliomrozw.supabase.co/storage/v1/object/public/log-guru-images/${image}`
+            return `https://xuiabtqtmfhgdqyrppex.supabase.co/storage/v1/object/public/log-guru-images/${image}`
         } catch (error) {
           console.error(error)
         }
       }
+
     useEffect(() => {
         fetchLog()
     })
