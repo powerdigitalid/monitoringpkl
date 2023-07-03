@@ -9,7 +9,7 @@ export default function ActivitySiswa(){
   const router = useRouter()
   const user = useLoginStore((state) => state.user)
   const role = useLoginStore((state) => state.role)
-  console.log(first)
+  // console.log(first)
   useEffect(() =>{
     if (user === '' && role ==='') router.push('/login')
   })

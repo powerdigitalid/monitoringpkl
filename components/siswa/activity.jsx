@@ -20,7 +20,7 @@ export default function Activity() {
   }
   const downloadImage = (image) => {
     try {
-      return `https://owmkwndkjubdliomrozw.supabase.co/storage/v1/object/public/log-siswa-images/${image}`
+      return `https://xuiabtqtmfhgdqyrppex.supabase.co/storage/v1/object/public/log-siswa-images/${image}`
     } catch (error) {
       console.error(error)
     }
