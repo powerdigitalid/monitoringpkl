@@ -11,7 +11,7 @@ datasource db {
 }
 
 model DataSiswa {
-  nisn         Float  @id
+  nisn         Float     @id
   nama_siswa   String
   jurusan      String
   deskripsi    String
@@ -21,17 +21,21 @@ model DataSiswa {
   nama_ortu    String
   no_telp_ortu Float
   userId       Int?
-  dudi         Dudi   @relation(fields: [DudiId], references: [id])
+  dudi         Dudi      @relation(fields: [DudiId], references: [id])
   DudiId       Int
+  guru         DataGuru  @relation(fields: [GuruId], references: [nip])
+  GuruId       Float
   Laporan      Laporan[]
 }
 
 model DataGuru {
-  nip       Float  @id
+  nip       Float       @id
   nama_guru String
   alamat    String
   no_telp   Float
   userId    Int?
+  DataSiswa DataSiswa[]
+  LogSiswa  LogSiswa[]
 }
 
 model User {
@@ -58,6 +62,8 @@ model LogSiswa {
   kegiatan  String
   dudi      Dudi     @relation(fields: [dudiId], references: [id])
   dudiId    Int
+  guru      DataGuru @relation(fields: [guruId], references: [nip])
+  guruId    Float
   image     String?
   createdAt DateTime
 }
@@ -71,7 +77,7 @@ model LogGuru {
 }
 
 model Laporan {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   nama      String
   file      String?
   siswa     DataSiswa @relation(fields: [SiswaId], references: [nisn])

@@ -14,7 +14,11 @@ export default function TableUsers() {
     }
   }
   useEffect(() => {
-    fetchUser()
+    const interval = setInterval(fetchUser, 5000); 
+    return () => {
+      clearInterval(interval);
+    };
+    // fetchUser()
   }, [])
   console.log(userdata)
   return (
