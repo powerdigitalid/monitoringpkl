@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import { supabase } from "../../libs/supabase.lib";
 import CardActivity from "./card-activity";
 import EditActivity from "./edit-activity";
+import useLoginStore from "../../store/store";
 
 export default function Activity() {
+    const role = useLoginStore((state) => state.role)
+    const user = useLoginStore((state) => state.id)
     const [loading, setLoading] = useState(false)
     const [log, setLog] = useState([])
     const fetchLog = async () => {
@@ -26,7 +29,7 @@ export default function Activity() {
 
     useEffect(() => {
         fetchLog()
-    })
+    }, [])
     return (
         <section className="content">
             <div className="container-fluid">
