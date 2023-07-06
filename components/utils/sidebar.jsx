@@ -68,7 +68,7 @@ export default function Sidebar({isActiveNavItem=0, activeUser=''}) {
                 </p>
               </Link>
             </li>
-            <li className="nav-item" hidden={role == 'guru' || role == 'dudi' || role == 'admin' || role == 'siswa' ? false : true}>
+            <li className="nav-item" hidden={role == 'guru' || role == 'dudi' || role == 'siswa' ? false : true}>
               <Link href="/siswa/activity" className={`nav-link ${isActiveNavItem == 5 ? ' active':''}`}>
                 <i className="nav-icon fas fa-clock" />
                 <p>

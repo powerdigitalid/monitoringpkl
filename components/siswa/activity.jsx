@@ -69,7 +69,7 @@ export default function Activity() {
     <section className="content">
       <div className="container-fluid">
         {/* Timelime example  */}
-        {role === 'admin' || role === 'siswa' || role === 'guru' ? <EditActivity /> : <></>}
+        {role === 'siswa' ? <EditActivity /> : <></>}
         <div className="row">
           <div className="col-md-12">
             {/* The time line */}
